@@ -40,7 +40,7 @@ community edition would also suffice for this Project.
 ### Intro to Python Tutorial
 * A comparison between Java and Python:
     * ![alt text](https://i.redd.it/ry69u7oa1rsy.png)
-* check <https://cs231n.github.io/python-numpy-tutorial/> 
+* check <https://cs231n.github.io/python-numpy-tutorial/#python> 
 
 
 

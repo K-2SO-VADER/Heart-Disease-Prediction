@@ -35,7 +35,12 @@ community edition would also suffice for this Project.
 * Useful Python libraries for data manipulation
 * Numpy: Mostly used for Array Manipulations
 * Pandas: A Python Data Structure(s) for data manipulations
-* Matplotlib..... 
+* Matplotlib.....
+
+### Intro to Python Tutorial
+* A comparison between Java and Python:
+    * ![alt text](https://i.redd.it/ry69u7oa1rsy.png)
+* check <https://cs231n.github.io/python-numpy-tutorial/> 
 
 
 

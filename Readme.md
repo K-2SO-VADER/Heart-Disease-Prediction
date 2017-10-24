@@ -1,9 +1,9 @@
-#Heart Disease (AI Class Project)
+# Heart Disease (AI Class Project)
 For AI class Project, this group will develop a predictive Heart Disease model based 
 on UCI ML dataset
 You can download the dataset at: <https://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/>
 
-##Setting up the Environment
+## Setting up the Environment
 1. Programming Language: Python version 3.5+ 
 2. Package Manager: Anaconda
 3. IDE: IntelliJ
@@ -16,11 +16,11 @@ Unix systems have Python already Pre-installed. On Linux, default version is Pyt
 * Download Anaconda (Python 3.6) for your OS version at: <https://www.anaconda.com/download/> For installation instructions for your OS,
 check <https://docs.anaconda.com/anaconda/install/>
 
-###Setting up IntelliJ's Pycharm
+### Setting up IntelliJ's Pycharm
 * Download Pycharm Professional edition. It has some nifty features not found in community edition, though
 community edition would also suffice for this Project. 
 
-####Setting up your first project
+#### Setting up your first project
 * Create a folder anywhere
 * Open Pycharm; file->open->project folder
 * Set environment to use Python 3.6;file -> settings -> Project: project name -> select Python 3.6 from dropdown (~/anaconda3/bin/python)

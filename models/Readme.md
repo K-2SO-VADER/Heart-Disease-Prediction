@@ -12,7 +12,7 @@
 ### Helper Functions
 1. read_csv.py:
     * Find Correlation among prediction variables/features.
-    * ![alt text](https://github.com/K-2SO-VADER/Heart-Disease-Prediction/tree/master/models/home/zack/Desktop/Figure_1.png) 
+    * ![alt text](/Figure_1.png) 
 2. read_csv.py:
     * Read csv and split file    
    

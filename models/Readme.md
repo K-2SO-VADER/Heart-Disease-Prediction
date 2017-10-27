@@ -12,7 +12,7 @@
 ### Helper Functions
 1. read_csv.py:
     * Find Correlation among prediction variables/features.
-    * ![alt text](/Figure_1.png) 
+    * ![alt text](https://imgur.com/a/qAN97) 
 2. read_csv.py:
     * Read csv and split file    
    

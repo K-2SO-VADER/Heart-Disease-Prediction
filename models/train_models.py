@@ -7,6 +7,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import GridSearchCV
 from models.read_csv import prediction_variables
 from sklearn.ensemble import RandomForestClassifier
+from sklearn import svm
 
 path = '/home/zack/Desktop/ML/AI_CLASS/Data/reprocessedHungarianData'
 data = split_data(path, prediction_variables)
@@ -26,12 +27,25 @@ def decision_tree_model():
 
 
 # fit a Random Classifier
+# Random Forest is an ensemble classifier: Combines multiple Decision Trees into one
+# for better prediction
 def predict_rf_model():
     model = RandomForestClassifier(n_estimators=100)
     model.fit(train_x, train_y)
     prediction = model.predict(test_x)
     rf_accuracy = accuracy_score(prediction, test_y)
     return rf_accuracy
+
+
+# fit SVM algorithm
+# SVM finds an optimal hyperplane in the dataset then classifies data into into one of the dimensions
+# A hyperplane divides a given dimension into multiple dimensions
+def predict_svm():
+    model = svm.SVC()
+    model.fit(train_x, train_y)
+    prediction = model.predict(test_x)
+    accuracy = accuracy_score(prediction, test_y)
+    return accuracy
 
 
 # use grid search CV to find the parameters for prediction using decision trees
@@ -64,30 +78,75 @@ def decision_trees_grid_search():
     ]
     model_grid_search_cv(model, parameters_grid, train_x, train_y)
 
-decision_tree_model()
+def random_forest_grid_search():
+    model = RandomForestClassifier()
+    parameters_grid = [
+        {
+            'n_estimators': [10, 50, 100, 150, 200],
+            'criterion' : ['gini' , 'entropy'],
+            'max_features' : ['auto' , 'sqrt' , 'log2'],
+            'max_depth': [5, 10, 15, 40],
+            'min_samples_leaf': [1, 2, 3, 4, 5]
 
-print("----GridSearchCV----")
+        }
+    ]
+    model_grid_search_cv(model, parameters_grid, train_x, train_y)
+
+
+def svm_grid_search():
+    model = svm.SVC()
+    param_grid = [
+        {'C': [1, 10, 100, 1000],
+         'kernel': ['linear']
+         },
+        {'C': [1, 10, 100, 1000],
+         'gamma': [0.001, 0.0001],
+         'kernel': ['rbf']
+         },
+    ]
+    model_grid_search_cv(model, param_grid, train_x , train_y)
+
+
+print("----GridSearchCV Decision Trees----")
+decision_tree_model()
 decision_trees_grid_search()
 
 print("----- Random Forest Classifier-----")
 print(predict_rf_model())
+random_forest_grid_search()
+
+print("-----SVM Classifier-----")
+print(predict_svm())
+svm_grid_search()
+
 
 '''
-Accuracy Score:  0.584269662921
-
------ Random Forest Classifier------
-0.707865168539 (Without Parameter Tuning)
-
-
-----GridSearchCV----
+----GridSearchCV Decision Trees----
+Accuracy Score:  0.595505617978
 Best Parameters: 
-{'min_samples_leaf': 5, 'max_depth': 15, 'criterion': 'gini', 'splitter': 'random'}
+{'criterion': 'gini', 'splitter': 'random', 'max_depth': 15, 'min_samples_leaf': 4}
 Best Accuracy Score: 
-0.70243902439
+0.673170731707
+
+----- Random Forest Classifier-----
+0.651685393258
+Best Parameters: 
+{'criterion': 'gini', 'max_depth': 15, 'max_features': 'sqrt', 'n_estimators': 50, 'min_samples_leaf': 3}
+Best Accuracy Score: 
+0.692682926829
+
+-----SVM Classifier-----
+0.685393258427
+Best Parameters: 
+{'C': 1, 'kernel': 'linear'}
+Best Accuracy Score: 
+0.653658536585
+
 '''
 
 '''
     To do:
+    0. Figure out why the consistently low accuracy rates. 
     1. Play around with parameters to improve accuracy
     2. Hold out set to reduce overfitting.
     3. Find the best prediction variables from all >76 features/prediction variables

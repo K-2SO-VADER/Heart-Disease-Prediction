@@ -8,10 +8,9 @@ from sklearn.model_selection import train_test_split
 # https://seaborn.pydata.org/
 import seaborn as sns
 import matplotlib.pyplot as plt
-
-# prediction variables
-prediction_variables = ['age', 'sex', 'cp', 'threstbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak',
-                            'slope', 'ca', 'thal']
+import glob
+import os
+from sklearn.preprocessing import Imputer
 
 
 def find_best_prediction_variables(path):
@@ -29,16 +28,49 @@ def find_best_prediction_variables(path):
     plt.show()
 
 # A visual check on the graph shows that none of the 13 prediction variables are correlated
-# find_best_prediction_variables('/home/zack/Desktop/ML/AI_CLASS/Data/reprocessedHungarianData')
+# find_best_prediction_variables('/home/zack/Desktop/ML/AI_CLASS/Data/reProcessedHungarianData')
 
 
-def split_data(path, prediction_vars):
-    data = pd.read_csv(path, header=0, delimiter=' ')
-    # shuffle data
-    data.reindex(np.random.permutation(data.index))
+# def split_data(path, prediction_vars):
+#     data = pd.read_csv(path, header=0, delimiter=' ')
+#     # shuffle data
+#     data.reindex(np.random.permutation(data.index))
+#
+#     # split into train and test dataset
+#     train, test = train_test_split(data, test_size=0.3)
+#
+#     # train variables
+#     train_x = train[prediction_vars]
+#     # train output
+#     train_y = train.num
+#
+#     # test variables
+#     test_x = test[prediction_vars]
+#     # test variables
+#     test_y = test.num
+#
+#     return [train_x, train_y, test_x, test_y]
+
+
+def split_all_data(prediction_vars):
+    # folder with all data: reProcessedCleveland, reProcessedHungarian, reProcessedSwitzerland, reProcessedVA
+    data_dir = r'/home/zack/Desktop/ML/AI_CLASS/Data'
+    os.chdir(data_dir)
+
+    data_list = []
+
+    # grad all files with part-name reProcessed
+    # slip by ',' and ' '
+    # Empty values = '?'
+    # Combine all into one dataset
+    for file in glob.glob('reProcessed*'):
+        df = pd.read_csv(file, index_col=None, header=0, sep=' |,', engine='python', na_values=["?"])
+        data_list.append(df)
+
+    results = pd.concat(data_list)
 
     # split into train and test dataset
-    train, test = train_test_split(data, test_size=0.3)
+    train, test = train_test_split(results, test_size=0.3)
 
     # train variables
     train_x = train[prediction_vars]
@@ -51,6 +83,9 @@ def split_data(path, prediction_vars):
     test_y = test.num
 
     return [train_x, train_y, test_x, test_y]
+
+
+
 
 
 

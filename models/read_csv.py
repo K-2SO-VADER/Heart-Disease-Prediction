@@ -59,7 +59,7 @@ def split_all_data(prediction_vars):
 
     data_list = []
 
-    # grad all files with part-name reProcessed
+    # grab all files with part-name reProcessed
     # slip by ',' and ' '
     # Empty values = '?'
     # Combine all into one dataset

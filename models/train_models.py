@@ -1,16 +1,22 @@
 # import split data from read_csv
 # Note: Ensure you have __init__.py in the same directory
 # __init__.py makes it possible to import classes/functions/variables from other python files
-from models.read_csv import split_data
+
+from models.read_csv import split_all_data
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import GridSearchCV
-from models.read_csv import prediction_variables
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import svm
+from sklearn.preprocessing import Imputer
 
-path = '/home/zack/Desktop/ML/AI_CLASS/Data/reprocessedHungarianData'
-data = split_data(path, prediction_variables)
+# prediction variables
+prediction_variables = ['age', 'sex', 'cp', 'threstbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak',
+                            'slope', 'ca', 'thal']
+
+
+# path = '/home/zack/Desktop/ML/AI_CLASS/Data/reProcessedHungarianData'
+data = split_all_data(prediction_variables)
 
 train_x = data[0]
 train_y = data[1]
@@ -77,6 +83,7 @@ def decision_trees_grid_search():
          'min_samples_leaf': [1, 2, 3, 4, 5]}
     ]
     model_grid_search_cv(model, parameters_grid, train_x, train_y)
+
 
 def random_forest_grid_search():
     model = RandomForestClassifier()
@@ -146,6 +153,7 @@ Best Accuracy Score:
 
 '''
     To do:
+    -1.Implement Imputer Class to fit and predict NaN values. 
     0. Figure out why the consistently low accuracy rates. 
     1. Play around with parameters to improve accuracy
     2. Hold out set to reduce overfitting.

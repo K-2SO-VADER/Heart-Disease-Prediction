@@ -30,28 +30,6 @@ def find_best_prediction_variables(path):
 # A visual check on the graph shows that none of the 13 prediction variables are correlated
 # find_best_prediction_variables('/home/zack/Desktop/ML/AI_CLASS/Data/reProcessedHungarianData')
 
-
-# def split_data(path, prediction_vars):
-#     data = pd.read_csv(path, header=0, delimiter=' ')
-#     # shuffle data
-#     data.reindex(np.random.permutation(data.index))
-#
-#     # split into train and test dataset
-#     train, test = train_test_split(data, test_size=0.3)
-#
-#     # train variables
-#     train_x = train[prediction_vars]
-#     # train output
-#     train_y = train.num
-#
-#     # test variables
-#     test_x = test[prediction_vars]
-#     # test variables
-#     test_y = test.num
-#
-#     return [train_x, train_y, test_x, test_y]
-
-
 def split_all_data(prediction_vars):
     # folder with all data: reProcessedCleveland, reProcessedHungarian, reProcessedSwitzerland, reProcessedVA
     data_dir = r'/home/zack/Desktop/ML/AI_CLASS/Data'
@@ -69,6 +47,15 @@ def split_all_data(prediction_vars):
 
     results = pd.concat(data_list)
 
+    # Strategy 1: Drop all NaN Rows.
+    results.dropna(inplace=True)
+
+    # Strategy 2: fill missing values with mean column values
+    # results.fillna(results.mean(), inplace=True)
+    # print(results)
+
+    # Strategy 3: .....
+
     # split into train and test dataset
     train, test = train_test_split(results, test_size=0.3)
 
@@ -83,7 +70,6 @@ def split_all_data(prediction_vars):
     test_y = test.num
 
     return [train_x, train_y, test_x, test_y]
-
 
 
 

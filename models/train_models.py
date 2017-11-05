@@ -128,6 +128,7 @@ svm_grid_search()
 
 
 '''
+Initial Data: 
 ----GridSearchCV Decision Trees----
 Accuracy Score:  0.595505617978
 Best Parameters: 
@@ -159,6 +160,39 @@ Best Accuracy Score:
     2. Hold out set to reduce overfitting.
     3. Find the best prediction variables from all >76 features/prediction variables
       
+'''
+
+'''
+Note: Increasing Data does not necessarily improve outcomes
+1. This set uses all 3 'reprocessed' files with NaN rows removed
+
+----GridSearchCV Decision Trees----
+Accuracy Score:  0.550561797753
+Best Parameters: 
+{'min_samples_leaf': 5, 'criterion': 'gini', 'splitter': 'random', 'max_depth': 40}
+Best Accuracy Score: 
+0.642512077295
+----- Random Forest Classifier-----
+0.584269662921
+Best Parameters: 
+{'min_samples_leaf': 2, 'max_features': 'auto', 'criterion': 'gini', 'n_estimators': 150, 'max_depth': 10}
+Best Accuracy Score: 
+0.661835748792
+-----SVM Classifier-----
+0.550561797753
+
+2. All Missing values replaced with mean of the column values
+Accuracy Score:  0.416666666667
+Best Parameters: 
+{'criterion': 'gini', 'max_depth': 5, 'splitter': 'best', 'min_samples_leaf': 1}
+Best Accuracy Score: 
+0.534161490683
+----- Random Forest Classifier-----
+0.518115942029
+...........................
+
+Default: Remove all NaN rows
+
 '''
 
 

@@ -69,7 +69,7 @@ def split_all_data(prediction_vars):
     # test variables
     test_y = test.num
 
-    return [train_x, train_y, test_x, test_y]
+    return [train_x, train_y, test_x, test_y, results]
 
 
 

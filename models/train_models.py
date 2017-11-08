@@ -9,6 +9,9 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import svm
 from sklearn.preprocessing import Imputer
+from sklearn.model_selection import KFold
+import numpy as np
+import pandas as pd
 
 # prediction variables
 prediction_variables = ['age', 'sex', 'cp', 'threstbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak',
@@ -18,10 +21,12 @@ prediction_variables = ['age', 'sex', 'cp', 'threstbps', 'chol', 'fbs', 'restecg
 # path = '/home/zack/Desktop/ML/AI_CLASS/Data/reProcessedHungarianData'
 data = split_all_data(prediction_variables)
 
+
 train_x = data[0]
 train_y = data[1]
 test_x = data[2]
 test_y = data[3]
+cross_validation_data = data[4]
 
 
 # fit a Decision Tree Classifier
@@ -63,6 +68,8 @@ def model_grid_search_cv(model, param_grid, data_x, data_y):
     print("Best Accuracy Score: ")
     print(clf.best_score_)
 
+    return clf.best_params_
+
 
 # Decision Trees Parameters: http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html
 '''
@@ -100,20 +107,6 @@ def random_forest_grid_search():
     model_grid_search_cv(model, parameters_grid, train_x, train_y)
 
 
-def svm_grid_search():
-    model = svm.SVC()
-    param_grid = [
-        {'C': [1, 10, 100, 1000],
-         'kernel': ['linear']
-         },
-        {'C': [1, 10, 100, 1000],
-         'gamma': [0.001, 0.0001],
-         'kernel': ['rbf']
-         },
-    ]
-    model_grid_search_cv(model, param_grid, train_x , train_y)
-
-
 print("----GridSearchCV Decision Trees----")
 decision_tree_model()
 decision_trees_grid_search()
@@ -122,9 +115,46 @@ print("----- Random Forest Classifier-----")
 print(predict_rf_model())
 random_forest_grid_search()
 
-print("-----SVM Classifier-----")
-print(predict_svm())
-svm_grid_search()
+
+# Cross Validation of Models: Prevent over-fitting
+def classification_model(model, data, prediction_input, output):
+    # fit using training set
+    model.fit(data[prediction_input], data[output])
+    # predict based on training set
+    predictions = model.predict(data[prediction_input])
+    # accuracy
+    accuracy = accuracy_score(predictions, data[output])
+    print ("Accuracy: ", accuracy)
+
+    # create 5 partitions
+    kf = KFold(n_splits=5)
+
+    error = []
+
+    # Split dataset into 5 consecutive folds
+    for train, test in kf.split(data):
+        # rows & columns
+        train_X = (data[prediction_input].iloc[train,:])
+        # rows
+        train_y = data[output].iloc[train]
+        model.fit(train_X, train_y)
+
+        # test data also
+        test_X = data[prediction_input].iloc[test, :]
+        test_y = data[output].iloc[test]
+        error.append(model.score(test_X, test_y))
+
+        # score
+        print("Cross Validation score: ", np.mean(error))
+
+
+def cross_validation_RF_Classifier():
+    model = RandomForestClassifier(n_estimators=100)
+    outcome_var = "num"
+    classification_model(model, cross_validation_data, prediction_variables, outcome_var)
+
+print("-----Cross Validation Results-----")
+cross_validation_RF_Classifier()
 
 
 '''
@@ -192,6 +222,14 @@ Best Accuracy Score:
 ...........................
 
 Default: Remove all NaN rows
+
+-----Cross Validation Results-----
+Accuracy:  1.0
+Cross Validation score:  0.621848739496
+Cross Validation score:  0.609243697479
+Cross Validation score:  0.606727436737
+Cross Validation score:  0.622418458909
+Cross Validation score:  0.638612733229
 
 '''
 

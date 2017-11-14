@@ -12,6 +12,7 @@ from sklearn.preprocessing import Imputer
 from sklearn.model_selection import KFold
 import numpy as np
 import pandas as pd
+import pickle # Persist model in disk
 
 # prediction variables
 prediction_variables = ['age', 'sex', 'cp', 'threstbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak',
@@ -33,7 +34,9 @@ cross_validation_data = data[4]
 def decision_tree_model():
     clf = DecisionTreeClassifier(random_state=0)
     clf.fit(train_x , train_y)
-    prediction = clf.predict(test_x)
+    s = pickle.dumps(clf)
+    clf2 = pickle.loads(s)
+    prediction = clf2.predict(test_x)
     print('Accuracy Score: ', accuracy_score(prediction, test_y))
 
 
@@ -43,8 +46,17 @@ def decision_tree_model():
 def predict_rf_model():
     model = RandomForestClassifier(n_estimators=100)
     model.fit(train_x, train_y)
-    prediction = model.predict(test_x)
+
+    saved = pickle.dump(model, open('rf_model_dumb', 'wb'))
+    model2 = pickle.load(open('rf_model_dumb', 'rb'))
+    prediction = model2.predict(test_x)
+
     rf_accuracy = accuracy_score(prediction, test_y)
+
+    # optional: Print actual predictions vs Predicted results
+    output = pd.DataFrame(data={"Actual": test_y, "predicted": prediction})
+    output.to_csv("RFComparison.csv", index=False)
+
     return rf_accuracy
 
 
@@ -158,6 +170,10 @@ cross_validation_RF_Classifier()
 
 
 '''
+Final To do: 
+Create a Pipeline for all the above. 
+'''
+'''
 Initial Data: 
 ----GridSearchCV Decision Trees----
 Accuracy Score:  0.595505617978
@@ -185,10 +201,8 @@ Best Accuracy Score:
 '''
     To do:
     -1.Implement Imputer Class to fit and predict NaN values. 
-    0. Figure out why the consistently low accuracy rates. 
-    1. Play around with parameters to improve accuracy
-    2. Hold out set to reduce overfitting.
-    3. Find the best prediction variables from all >76 features/prediction variables
+   
+   
       
 '''
 

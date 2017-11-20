@@ -15,7 +15,7 @@
 * GCP gives you $300 free credit/year
 * Tutorial: <https://cs231n.github.io/gce-tutorial/>
 
-### Alternatively, deploy to now (512Mb, 1vCPU at most) - not 52GB :)
+### Alternatively, deploy to now (512Mb, 1vCPU at most) - not 52GB
 * Sign up on [ZEIT](https://zeit.co/now)
 * Get a token [here](https://zeit.co/account/tokens)
 * Click this: [![Deploy to now](https://deploy.now.sh/static/button.svg)](https://deploy.now.sh/?repo=https://github.com/K-2SO-VADER/Heart-Disease-Prediction/tree/jupyter)

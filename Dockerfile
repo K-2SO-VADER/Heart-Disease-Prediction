@@ -1,2 +1,2 @@
 FROM jupyter/datascience-notebook
-COPY . /src
+COPY . $NOTEBOOK_DIR/heart-disease

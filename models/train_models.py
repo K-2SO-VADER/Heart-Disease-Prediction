@@ -1,8 +1,7 @@
 # import split data from read_csv
 # Note: Ensure you have __init__.py in the same directory
 # __init__.py makes it possible to import classes/functions/variables from other python files
-
-from models.read_csv import split_all_data
+from read_csv import split_all_data
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import GridSearchCV
@@ -17,7 +16,6 @@ import pickle # Persist model in disk
 # prediction variables
 prediction_variables = ['age', 'sex', 'cp', 'threstbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak',
                             'slope', 'ca', 'thal']
-
 
 # path = '/home/zack/Desktop/ML/AI_CLASS/Data/reProcessedHungarianData'
 data = split_all_data(prediction_variables)

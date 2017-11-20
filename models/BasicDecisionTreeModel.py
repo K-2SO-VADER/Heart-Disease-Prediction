@@ -12,7 +12,7 @@ from sklearn.metrics import accuracy_score
     2. Use Pandas to read it to the Program
     3. Print the columns
 '''
-data = pd.read_csv('/home/zack/Desktop/ML/AI_CLASS/Data/reprocessedHungarianData', header=0, delimiter=' ')
+data = pd.read_csv('./Data/reprocessedHungarianData.enc', header=0, delimiter=' ')
 data_cols = list(data.columns)
 
 print(data_cols)

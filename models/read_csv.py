@@ -32,7 +32,7 @@ def find_best_prediction_variables(path):
 
 def split_all_data(prediction_vars):
     # folder with all data: reProcessedCleveland, reProcessedHungarian, reProcessedSwitzerland, reProcessedVA
-    data_dir = r'/home/zack/Desktop/ML/AI_CLASS/Data'
+    data_dir = r'/home/clive/code/class/ai/Heart-Disease-Prediction/Data'
     os.chdir(data_dir)
 
     data_list = []

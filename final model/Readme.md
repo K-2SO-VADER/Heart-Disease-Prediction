@@ -14,3 +14,10 @@
 ### Setting up your GCP:
 * GCP gives you $300 free credit/year
 * Tutorial: <https://cs231n.github.io/gce-tutorial/>
+
+## Alternatively, deploy to now (512Mb, 1vCPU at most) Very poor performance
+* Sign up on [ZEIT](https://zeit.co/now)
+* Get a token [here](https://zeit.co/account/tokens)
+* Click this: [![Deploy to now](https://deploy.now.sh/static/button.svg)](https://deploy.now.sh/?repo=https://github.com/K-2SO-VADER/Heart-Disease-Prediction/tree/jupyter)
+
+#### OR Deploy to GCP and ZEIT(now),then perform benchmarks of your own

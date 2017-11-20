@@ -19,5 +19,7 @@
 * Sign up on [ZEIT](https://zeit.co/now)
 * Get a token [here](https://zeit.co/account/tokens)
 * Click this: [![Deploy to now](https://deploy.now.sh/static/button.svg)](https://deploy.now.sh/?repo=https://github.com/K-2SO-VADER/Heart-Disease-Prediction/tree/jupyter)
+* Visit the /_src path given to you to get your jupyter token in the logs
+* Use the token to login to jupyter
 
 #### OR Deploy to GCP and ZEIT(now),then perform benchmarks of your own

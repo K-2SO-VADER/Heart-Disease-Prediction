@@ -1,2 +1,3 @@
 FROM jupyter/datascience-notebook
-COPY . /home/jovyan/work/heart-disease
+COPY . /home/jovyan/heart-disease
+EXPOSE 8888
